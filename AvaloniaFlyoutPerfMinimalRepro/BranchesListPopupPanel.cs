@@ -35,7 +35,6 @@ internal class BranchesListPopupPanel : DockPanel/*IFilterableTable, IRefreshabl
             out mFilterEntry,
             out mCreateBranchButton,
             out mBranchesList,
-            out mScrollViewer,
             out mListContainerPanel);
 
         List<object> itemsSource = new List<object>();
@@ -73,7 +72,7 @@ internal class BranchesListPopupPanel : DockPanel/*IFilterableTable, IRefreshabl
             SectionName = "Other branches"
         });
 
-        for (int i = 0; i < 10000; i++)
+        for (int i = 0; i < 21; i++)
         {
             itemsSource.Add(new BranchInfo()
             {
@@ -90,10 +89,10 @@ internal class BranchesListPopupPanel : DockPanel/*IFilterableTable, IRefreshabl
 
     void SetItemsSource(IEnumerable? itemsSource)
     {
-        Vector scrollOffset = mScrollViewer.Offset;
+        //Vector scrollOffset = mScrollViewer.Offset;
         mBranchesList.ItemsSource = null;
         mBranchesList.ItemsSource = itemsSource;
-        mScrollViewer.Offset = scrollOffset;
+        //mScrollViewer.Offset = scrollOffset;
 
         SetupEmptyStateVisibility();
     }
@@ -120,11 +119,11 @@ internal class BranchesListPopupPanel : DockPanel/*IFilterableTable, IRefreshabl
 
     void HideEmptyStatePanel()
     {
-        if (mListContainerPanel.Children[0] == mScrollViewer)
+        if (mListContainerPanel.Children[0] == mBranchesList)
             return;
 
         mListContainerPanel.Children.Clear();
-        mListContainerPanel.AddChildren(fill: mScrollViewer);
+        mListContainerPanel.AddChildren(fill: mBranchesList);
     }
 
     void ItemContainerGenerator_ContainerClearing(object? sender, ContainerClearingEventArgs e)
@@ -173,7 +172,6 @@ internal class BranchesListPopupPanel : DockPanel/*IFilterableTable, IRefreshabl
         out TextBox filterEntry,
         out Button createBranchButton,
         out ItemsControl branchesList,
-        out ScrollViewer scrollViewer,
         out DockPanel listContainerPanel)
     {
         Panel progressBarPanel = CreateProgressBarPanel(out progressBar);
@@ -185,7 +183,7 @@ internal class BranchesListPopupPanel : DockPanel/*IFilterableTable, IRefreshabl
         Func<string> fetchFilterText = () => mFilterEntry.Text;
 
         listContainerPanel = new DockPanel();
-        branchesList = new ItemsControl();
+        branchesList = new ListBox();
         branchesList.ItemsPanel = new FuncTemplate<Panel?>(() => new VirtualizingStackPanel());
         branchesList.DataTemplates.Add(new FuncDataTemplate<BranchInfo>((_, _) =>
             new BranchPanel(
@@ -206,10 +204,7 @@ internal class BranchesListPopupPanel : DockPanel/*IFilterableTable, IRefreshabl
             ItemContainerGenerator_ContainerClearing,
             mEventsTranslator);*/
 
-        scrollViewer = new ScrollViewer();
-        scrollViewer.Content = branchesList;
-
-        listContainerPanel.AddChildren(fill: scrollViewer);
+        listContainerPanel.AddChildren(fill: branchesList);
 
         this.AddChildren(
             top: new[] { progressBarPanel, createBranchPanel },
@@ -262,7 +257,6 @@ internal class BranchesListPopupPanel : DockPanel/*IFilterableTable, IRefreshabl
     readonly TextBox mFilterEntry;
     readonly Button mCreateBranchButton;
     readonly ItemsControl mBranchesList;
-    readonly ScrollViewer mScrollViewer;
     readonly DockPanel mListContainerPanel;
 
     BranchInfo? mWorkingBranch;

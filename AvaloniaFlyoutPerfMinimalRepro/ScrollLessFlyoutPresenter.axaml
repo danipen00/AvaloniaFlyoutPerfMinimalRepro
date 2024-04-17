@@ -10,7 +10,7 @@
     <Setter Property="MinWidth" Value="96" />
     <Setter Property="MaxWidth" Value="850" />
     <Setter Property="MinHeight" Value="40" />
-    <Setter Property="MaxHeight" Value="758" />
+    <Setter Property="MaxHeight" Value="900" />
     <Setter Property="CornerRadius" Value="4" />
     <Setter Property="Template">
       <ControlTemplate>

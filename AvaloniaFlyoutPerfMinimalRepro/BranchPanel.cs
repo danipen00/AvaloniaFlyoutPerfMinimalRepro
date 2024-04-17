@@ -171,14 +171,17 @@ internal class BranchPanel : DockPanel
         image.VerticalAlignment = VerticalAlignment.Center;
 
         branchNameTextBlock = new TextBlockAutoTooltip();
+        branchNameTextBlock.FontSize = 12;
         branchNameTextBlock.TextTrimming = TextTrimming.CharacterEllipsis;
         branchNameTextBlock.VerticalAlignment = VerticalAlignment.Center;
 
         dateTextBlock = new TextBlock();
+        dateTextBlock.FontSize = 10;
         dateTextBlock.VerticalAlignment = VerticalAlignment.Center;
         dateTextBlock.Margin = new Thickness(0, 0, 5, 0);
 
         branchDescriptionTextBlock = new TextBlockAutoTooltip();
+        branchDescriptionTextBlock.FontSize = 10;
         branchDescriptionTextBlock.TextTrimming = TextTrimming.CharacterEllipsis;
 
         branchNameTextBlock.Margin = new Thickness(0, 0, 5, 0);

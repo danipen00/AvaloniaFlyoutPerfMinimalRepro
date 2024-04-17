@@ -12,7 +12,7 @@ internal class SectionPanel : Panel
     {
         Margin = new Thickness(
             10,
-            5);
+            0);
 
         BuildComponents(out mSectionNameTextBlock);
     }
@@ -30,6 +30,7 @@ internal class SectionPanel : Panel
     void BuildComponents(out TextBlock sectionNameTextBlock)
     {
         sectionNameTextBlock = new TextBlock();
+        sectionNameTextBlock.FontSize = 12;
         sectionNameTextBlock.FontWeight = FontWeight.DemiBold;
 
         Children.Add(sectionNameTextBlock);
